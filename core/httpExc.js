@@ -29,7 +29,7 @@ class NotFound extends HttpException {
   }
 }
 
-class Unauthorized extends HttpException {
+class UnAuthorized extends HttpException {
   constructor(msg, errorCode) {
     super()
     this.status = 401
@@ -38,4 +38,22 @@ class Unauthorized extends HttpException {
   }
 }
 
-module.exports = { HttpException, ParameterException, NotFound, Unauthorized }
+class Success extends HttpException {
+  constructor(msg, errorCode) {
+    super()
+    this.status = 201
+    this.msg = msg || 'ok'
+    this.errorCode = errorCode || 0
+  }
+}
+
+class Forbbiden extends HttpException {
+  constructor(msg, errorCode) {
+    super()
+    this.status = 403
+    this.msg = msg || '当前用户无权访问'
+    this.errorCode = errorCode || 1003
+  }
+}
+
+module.exports = { HttpException, ParameterException, NotFound, UnAuthorized, Forbbiden, Success }

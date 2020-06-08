@@ -10,7 +10,11 @@ const conf = {
   host,
   dialect: 'mysql',
   timezone: '+8:00',
-  logging: true  // 限时sql语句
+  logging: true,  // 显示sql语句
+  define: {
+    // 添加 deletedAt 字段
+    paranoid: true
+  }
 }
 const seq = new Sequelize(datebase, user, pwd, conf)
 

@@ -15,7 +15,7 @@ class InitManager {
     const conf = require(confDirectory)
     global.config = conf
   }
-  static initLoadModules() {const apiDirectory = `${process.cwd()}/app/api`
+  static initLoadModules() {
     const apiDirectory = `${process.cwd()}/app/api`
     requireDirectory(module, apiDirectory, { visit: whenLoadModule })
 

@@ -39,6 +39,11 @@ const findMembers = function (instance, {
     return _find(instance)
 }
 
+/**
+ * jwt 生成token
+ * @param {string} uid  用户 id
+ * @param {*} scope  权限级别
+ */
 const generateToken = function(uid, scope){
     const secretKey = global.config.security.secretKey
     const expiresIn = global.config.security.expiresIn
