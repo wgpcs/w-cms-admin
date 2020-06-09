@@ -10,8 +10,8 @@ const { UnAuthorized } = require('../../core/httpExc')
 class User extends Model {
   /**
    * 验证邮箱 密码
-   * @param {string} email 
-   * @param {string* password 
+   * @param {string} email
+   * @param {string* password
    */
   static async verifyEmailPassword(email, password) {
     const user = await User.findOne({
@@ -31,6 +31,32 @@ class User extends Model {
 
     return user
   }
+
+  /**
+   * 微信获取openID 查看数据库 openid 用户
+   * @param {string} openid
+   */
+  static async getUserByOpenid(openid) {
+    const user = await User.findOne({
+      where: {
+        openid,
+      },
+    })
+
+    return user
+  }
+
+  /**
+   * 微信获取openID 创建用户
+   * @param {string} openid
+   */
+  static async createUserByOpenid(openid, wxUserInfo) {
+    let { userName } = wxUserInfo
+    return await User.create({
+      openid,
+      userName,
+    })
+  }
 }
 
 User.init(
@@ -42,7 +68,6 @@ User.init(
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
       set(val) {
         // 加密密码
         const salt = bcrypt.genSaltSync(10)

@@ -3,11 +3,12 @@
  */
 
 const router = require('koa-router')()
-const { TokenValidator } = require('../../../validators/validator')
-const { LoginType } = require('../../../lib/enum')
-const { User } = require('../../../models/user')
-const { ParameterException } = require('../../../../core/httpExc')
-const { generateToken } = require('../../../../core/utils')
+const { TokenValidator } = require('../../validators/validator')
+const { LoginType } = require('../../lib/enum')
+const { User } = require('../../models/user')
+const { ParameterException } = require('../../../core/httpExc')
+const { generateToken } = require('../../../core/utils')
+const { WXManager } = require('../../services/wx')
 
 router.prefix('/v1/token')
 
@@ -16,9 +17,14 @@ router.post('/', async (ctx) => {
   let token
   switch (v.get('body.type')) {
     case LoginType.USER_EMAIL:
-      token = await emailLogin(v.get('body.account'), v.get('body.secret'))
+      const secret = v.get('body.secret') || ''
+      token = await emailLogin(v.get('body.account'), secret)
       break
     case LoginType.USER_MINI_PRO:
+      let userInfo = {
+        userName: v.get('body.userName'),
+      }
+      token = await WXManager.codeToToken(v.get('body.account'), userInfo)
       break
     default:
       throw new ParameterException('操作有误')

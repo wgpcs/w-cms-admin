@@ -10,6 +10,8 @@ class Auth {
   constructor(level) {
     // 接口权限级别
     this.level = level || 1
+    this.USER = 8
+    this.ADMIN = 16
   }
   get m() {
     return async (ctx, next) => {
