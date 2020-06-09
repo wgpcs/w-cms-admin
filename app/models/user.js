@@ -50,11 +50,13 @@ class User extends Model {
    * 微信获取openID 创建用户
    * @param {string} openid
    */
-  static async createUserByOpenid(openid, wxUserInfo) {
-    let { userName } = wxUserInfo
+  static async createUserByOpenid(openid, userInfo) {
+    let { userName, nickName, avatarUrl } = userInfo
     return await User.create({
       openid,
-      userName,
+      nickName,
+      avatar: avatarUrl,
+      userName: userName ? userName : nickName,
     })
   }
 }

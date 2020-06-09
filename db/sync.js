@@ -4,6 +4,8 @@
 
 const seq = require('./seq')
 require('../app/models/user')
+require('../app/models/goods')
+require('../app/models/collect')
 // 测试链接
 seq.authenticate().then(()=>{
     console.log('auth ok')

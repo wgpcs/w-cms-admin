@@ -21,9 +21,7 @@ router.post('/', async (ctx) => {
       token = await emailLogin(v.get('body.account'), secret)
       break
     case LoginType.USER_MINI_PRO:
-      let userInfo = {
-        userName: v.get('body.userName'),
-      }
+      let userInfo =  v.get('body.userInfo')
       token = await WXManager.codeToToken(v.get('body.account'), userInfo)
       break
     default:

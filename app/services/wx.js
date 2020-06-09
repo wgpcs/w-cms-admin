@@ -5,9 +5,10 @@ const { UnAuthorized } = require('../../core/httpExc')
 const { User } = require('../models/user')
 // const { LoginType } = require('../lib/enum')
 const { Auth } = require('../../middlewares/auth')
+const { generateToken } = require('../../core/utils')
 
 class WXManager {
-  static async codeToToken(code, wxUserInfo) {
+  static async codeToToken(code, userInfo) {
     let url = util.format(wx.loginUrl, wx.appId, wx.appSecret, code)
     let res = await axios.get(url)
     if (res.status !== 200) {
@@ -20,7 +21,7 @@ class WXManager {
 
     let user = await User.getUserByOpenid(res.data.openid)
     if (!user) {
-      user = await User.createUserByOpenid(res.data.openid, wxUserInfo)
+      user = await User.createUserByOpenid(res.data.openid, userInfo)
     }
 
     return generateToken(user.id, Auth.USER)

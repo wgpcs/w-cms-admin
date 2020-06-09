@@ -15,7 +15,7 @@ class Auth {
   }
   get m() {
     return async (ctx, next) => {
-      let errMsg = 'token不合法'
+      let errMsg = 'token 验证失败'
       // HttpBasicAuth 身份验证
       const token = basicAuth(ctx.req)
       if (!token || !token.name) {
@@ -26,7 +26,7 @@ class Auth {
       try {
         var decoded = jwt.verify(token.name, global.config.security.secretKey)
       } catch (error) {
-        if (error.name == 'TokenExpriedError') {
+        if (error.name == 'TokenExpiredError') {
           errMsg = 'token 已经过期'
         }
         throw new Forbbiden(errMsg)
