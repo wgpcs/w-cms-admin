@@ -7,7 +7,7 @@ const {
 } = require('../../core/httpExc')
 
 /**
- * 
+ * 成功信息返回
  * @param {string} msg 
  * @param {number} errorCode 
  */

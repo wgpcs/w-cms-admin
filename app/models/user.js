@@ -9,7 +9,7 @@ const { UnAuthorized } = require('../../core/httpExc')
 
 class User extends Model {
   /**
-   * 验证邮箱 密码
+   * 验证邮箱 密码 是否存在 匹配
    * @param {string} email
    * @param {string* password
    */
