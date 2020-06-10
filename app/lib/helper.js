@@ -9,8 +9,9 @@ const { Success } = require('../../core/httpExc')
  * @param {string} msg
  * @param {number} errorCode
  */
-function success(msg, errorCode) {
-  throw new Success(msg, errorCode)
+function success({ data = null, msg = '', errorCode = 0 } = {}) {
+  console.log(msg, data)
+  throw new Success(msg, errorCode, data)
 }
 
 module.exports = {

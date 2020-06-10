@@ -39,11 +39,14 @@ class UnAuthorized extends HttpException {
 }
 
 class Success extends HttpException {
-  constructor(msg, errorCode) {
+  constructor(msg, errorCode, data) {
     super()
-    this.status = 201
+    this.status = 200
     this.msg = msg || 'ok'
     this.errorCode = errorCode || 0
+    if (data) {
+      this.data = data
+    }
   }
 }
 
@@ -56,4 +59,11 @@ class Forbbiden extends HttpException {
   }
 }
 
-module.exports = { HttpException, ParameterException, NotFound, UnAuthorized, Forbbiden, Success }
+module.exports = {
+  HttpException,
+  ParameterException,
+  NotFound,
+  UnAuthorized,
+  Forbbiden,
+  Success,
+}
